@@ -19,6 +19,11 @@ public class UrlController {
         this.urlService = urlService;
     }
 
+    /**
+     * Recebe uma URL, processa, persiste e devolve URL encurtada
+     * @param urlRequest, que tem a string da URL a ser encurtada
+     * @return ResponseEntity contendo um ResponseDTO com a URL encurtada ou uma mensagem de erro
+     */
     @PostMapping("/short")
     public ResponseEntity<ResponseDTO<String>> shortUrl(@RequestBody RequestDTO urlRequest) {
         try {
@@ -34,6 +39,11 @@ public class UrlController {
         }
     }
 
+    /**
+     * recebe um GET com a URL encurtada, busca no banco e redireciona para a original (se encontrar)
+     *
+     * @return ResponseEntity indicando redirecionamento ou Not Found
+     */
     @GetMapping("/{shortUrl}")
     public ResponseEntity<Void> redirect(@PathVariable String shortUrl) {
         String originalUrl = urlService.getOriginalUrl(shortUrl);
